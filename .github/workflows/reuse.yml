@@ -9,6 +9,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - uses: .github/workflows/generic-action.yml@main
+      - uses: cgmerida/gh-actions-learning/.github/workflows/generic-action.yml@main
 
       - run: echo "works"
