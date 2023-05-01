@@ -1,0 +1,79 @@
+name: Generic Action
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        default: '18.x'
+        required: false
+        type: string
+      node_registry_url:
+        default: 'https://registry.npmjs.org'
+        required: false
+        type: string
+      timeout_minutes:
+        default: 15
+        required: false
+        type: number
+      dx_branch:
+        default: main
+        required: false
+        type: string
+      app_path:
+        default: app
+        required: false
+        type: string
+      install_scripts:
+        default: false
+        required: false
+        type: boolean
+
+jobs:
+  generic:
+    name: Generic Start
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout_minutes }}
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup nodejs
+        uses: actions/setup-node@v3
+        env:
+          APP_DEPENDENCY_PATH: ${{ inputs.app_path }}/package-lock.json
+        with:
+          node-version: ${{ inputs.node_version }}
+          registry-url: ${{ inputs.node_registry_url }}
+          cache: npm
+          cache-dependency-path: ${{ env.APP_DEPENDENCY_PATH }}
+
+      - name: Check NPM_TOKEN validity
+        shell: bash
+        run: npm whoami
+
+      - name: Install ${{ inputs.app_path }} dependencies
+        if: steps.cache-app-node-modules.outputs.cache-hit != 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        shell: bash
+        run: npm ci --prefix ${{ inputs.app_path }} --ignore-scripts
+
+      - name: Run install scripts in ${{ inputs.app_path }} directory
+        if: inputs.install_scripts && steps.cache-app-node-modules.outputs.cache-hit != 'true'
+        shell: bash
+        run: npm rebuild --prefix ${{ inputs.app_path }} && npm run prepare --if-present --prefix ${{ inputs.app_path }}
+
+      - name: Success Telemetry
+        if: success()
+        continue-on-error: true
+        run: echo "success"
+
+      - name: Failure Telemetry
+        if: failure()
+        continue-on-error: true
+        run: echo "failed"
+        
+      - name: Cancel Telemetry
+        if: cancelled()
+        continue-on-error: true
+        run: echo "cancelled"
