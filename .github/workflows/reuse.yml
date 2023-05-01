@@ -3,12 +3,10 @@ name: Reuse
 on: [workflow_call, workflow_dispatch]
 
 jobs:
+  testing:
+    uses: ./.github/workflows/generic-action.yml
+
   reuse:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - uses: cgmerida/gh-actions-learning/.github/workflows/generic-action.yml@main
-
       - run: echo "works"
