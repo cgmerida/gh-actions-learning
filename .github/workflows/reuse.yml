@@ -6,6 +6,9 @@ jobs:
   reuse:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
       - uses: ./.github/workflows/generic-action.yml
 
       - run: echo "works"
