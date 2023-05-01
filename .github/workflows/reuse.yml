@@ -9,6 +9,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - uses: ./.github/workflows/generic-action.yml
+      - uses: .github/workflows/generic-action.yml@main
 
       - run: echo "works"
