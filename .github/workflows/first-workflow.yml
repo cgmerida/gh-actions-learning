@@ -13,17 +13,22 @@ jobs:
     steps:
       - name: Print Greeting
         run: echo "Hello World!"
-        
-      - name: run global env variable
-        run: echo "$NODE_VERSION"
       
-      - name: run job env variable
-        run: echo "$JOB_ENV"
-        
       - name: run step env variable
         env:
           ONLY_STEP: only step test
-        run: echo "$ONLY_STEP"
+        run: |
+          echo "$ONLY_STEP"
+          echo "${{ env.JOB_ENV }}"
       
+      - name: run job env variable
+        run:  |
+          echo "$ONLY_STEP"
+          echo "$JOB_ENV"
+          echo "${{ env.NODE_VERSION }}"
+        
+      - name: run global env variable
+        run: echo "$NODE_VERSION"
+        
       - name: First Goodbay
         run: echo "Bye!"
