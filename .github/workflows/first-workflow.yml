@@ -2,12 +2,28 @@ name: first-worflow
 
 on: workflow_dispatch
 
+env:
+  NODE_VERSION: 18
+
 jobs:
   first-job:
+    env:
+      JOB_ENV: Job Env variable
     runs-on: ubuntu-latest
     steps:
       - name: Print Greeting
         run: echo "Hello World!"
+        
+      - name: run global env variable
+        run: echo "$NODE_VERSION"
+      
+      - name: run job env variable
+        run: echo "$JOB_ENV"
+        
+      - name: run step env variable
+        env:
+          ONLY_STEP: only step test
+        run: echo "$ONLY_STEP"
       
       - name: First Goodbay
         run: echo "Bye!"
