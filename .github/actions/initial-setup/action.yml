@@ -13,8 +13,8 @@ runs:
     - name: Install Node
       uses: actions/setup-node@v3
       with:
-        node_version: ${{ inputs.node_version }}
-        cache: npm
+        node-version: ${{ inputs.node_version }}
+        # cache: npm
 
     - name: Install Dependencies
       shell: bash
