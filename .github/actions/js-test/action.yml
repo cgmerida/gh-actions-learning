@@ -1,0 +1,11 @@
+name: Initial Setup
+description: checkout, install node & dependencies
+
+inputs:
+  node_version:
+    description: Node version to install
+    default: 18.X
+
+runs:
+  using: node16
+  main: main.js

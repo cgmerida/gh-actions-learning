@@ -11,24 +11,30 @@ jobs:
       JOB_ENV: Job Env variable
     runs-on: ubuntu-latest
     steps:
+      - name: Composite action
+        uses: ./github/actions/initial-setup
+
       - name: Print Greeting
         run: echo "Hello World!"
-      
+
       - name: run step env variable
         env:
           ONLY_STEP: only step test
         run: |
           echo "$ONLY_STEP"
           echo "${{ env.JOB_ENV }}"
-      
+
       - name: run job env variable
-        run:  |
+        run: |
           echo "$ONLY_STEP"
           echo "$JOB_ENV"
           echo "${{ env.NODE_VERSION }}"
-        
+
       - name: run global env variable
         run: echo "$NODE_VERSION"
-        
+
       - name: First Goodbay
         run: echo "Bye!"
+
+      - name: JS action
+        uses: ./github/actions/js-test
