@@ -2,9 +2,9 @@ name: Initial Setup
 description: checkout, install node & dependencies
 
 inputs:
-  node_version:
-    description: Node version to install
-    default: 18.X
+  path:
+    description: path to install
+    required: true
 
 runs:
   using: node16
