@@ -13,9 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Composite action
-        uses: ./github/actions/initial-setup
+        uses: ./.github/actions/initial-setup
 
       - name: Print Greeting
         run: echo "Hello World!"
@@ -40,4 +40,4 @@ jobs:
         run: echo "Bye!"
 
       - name: JS action
-        uses: ./github/actions/js-test
+        uses: ./.github/actions/js-test
