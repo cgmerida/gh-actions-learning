@@ -5,6 +5,7 @@ inputs:
   node_version:
     description: Node version to install
     default: 18.X
+    required: false
 
 runs:
   using: composite
@@ -12,7 +13,7 @@ runs:
     - name: Install Node
       uses: actions/setup-node@v3
       with:
-        node_version: ${{ node_version }}
+        node_version: ${{ inputs.node_version }}
         cache: npm
 
     - name: Install Dependencies
