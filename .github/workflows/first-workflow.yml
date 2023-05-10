@@ -41,3 +41,5 @@ jobs:
 
       - name: JS action
         uses: ./.github/actions/js-test
+        with:
+          path: ./
