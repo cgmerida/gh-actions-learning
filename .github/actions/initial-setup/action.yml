@@ -18,4 +18,5 @@ runs:
 
     - name: Install Dependencies
       shell: bash
-      run: npm ci --prefer-offline
+      run: npm -v
+      # run: npm ci --prefer-offline
