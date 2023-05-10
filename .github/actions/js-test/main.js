@@ -9,7 +9,7 @@ const run = () => {
     trimWhitespace: true,
   });
 
-  exec(`echo "Testing js actions where path is ${path}"`)
+  exec.exec(`echo "Testing js actions where path is ${path}"`)
 };
 
 run();
