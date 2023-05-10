@@ -11,6 +11,9 @@ jobs:
       JOB_ENV: Job Env variable
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
       - name: Composite action
         uses: ./github/actions/initial-setup
 
